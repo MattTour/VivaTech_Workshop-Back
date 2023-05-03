@@ -1,9 +1,9 @@
-version: '3.3'
+version: '3.8'
 services:
   node:
-    container_name: project_node_workshop
     image: 'node:latest'
-    working_dir: /home/node/app
+    container_name: project_node
+    working_dir: '/home/app'
     env_file:
       - .env
     command:
@@ -12,8 +12,19 @@ services:
       - 'npm install && npm start'
     ports:
       - '3000:3000'
+    links:
+      - mysql
     volumes:
-      - './src:/home/node/app'
+      - './app:/home/app'
+    networks:
+      - my-network
+  mysql:
+    image: 'mariadb:latest'
+    container_name: project_mysql
+    env_file:
+      - .env
+    ports:
+      - '3309:3309'
     networks:
       - my-network
 networks:
