@@ -29,7 +29,47 @@ router.post('/create', async(req, res) => {
 
     await newStand.save();
 
-    res.send("User_created");
+    res.send("Stand_created");
+});
+
+router.post('/update/:standId', async(req, res) => {
+    let { standId } = req.params;
+    let aStand = await stand.findByPk(standId);
+
+    if (req.body.nom) {
+        aStand.Nom = req.body.nom;
+    }
+    if (req.body.description) {
+        aStand.Description = req.body.description;
+    }
+    if (req.body.localisation) {
+        aStand.Localisation = req.body.localisation;
+    }
+    if (req.body.nom_entreprise) {
+        aStand.Nom_Entreprise = req.body.nom_entreprise;
+    }
+    if (req.body.categorie) {
+        aStand.Catégorie = req.body.categorie;
+    }
+    if (req.body.email) {
+        aStand.Email = req.body.email;
+    }
+    if (req.body.telephone) {
+        aStand.Telephone = req.body.telephone;
+    }
+
+    await aStand.save();
+
+    res.send("Stand_updated");
+});
+
+router.post('/delete/:standId', async(req, res) => {
+    let { standId } = req.params;
+    let aStand = await stand.findByPk(standId);
+
+    await aStand.destroy();
+
+    res.send("Stand_deleted");
 });
 
 module.exports = router;
