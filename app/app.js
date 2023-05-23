@@ -5,6 +5,7 @@ const sequelize = require('./utils/database');
 
 const routesUser = require('./routes/user');
 const routesStand = require('./routes/stand');
+const routesCV = require('./routes/cv');
 
 const app = express();
 const port = 5000;
@@ -14,6 +15,7 @@ app.use(bodyParser());
 app.use(express.static('public'));
 app.use('/user', routesUser);
 app.use('/stand', routesStand);
+app.use('/cv', routesCV);
 
 app.get('/', (req, res) => {
     res.status(200).send('Hello world !');
