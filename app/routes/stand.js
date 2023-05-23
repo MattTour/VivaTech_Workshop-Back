@@ -72,4 +72,15 @@ router.post('/delete/:standId', async(req, res) => {
     res.send("Stand_deleted");
 });
 
+router.get('/categorie/:categorie', async(req, res) => {
+    let { categorie } = req.params;
+    let stands = await stand.findAll({
+        where: {
+            Catégorie: categorie
+        }
+    });
+
+    res.status(200).json(stands);
+});
+
 module.exports = router;
